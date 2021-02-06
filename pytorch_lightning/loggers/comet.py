@@ -17,19 +17,10 @@ Comet Logger
 ------------
 """
 
-import logging
-import os
-from argparse import Namespace
-from typing import Any, Dict, Optional, Union
+# isort: off
 
-import torch
-from torch import is_tensor
+from pytorch_lightning.utilities import _module_available
 
-from pytorch_lightning.loggers.base import LightningLoggerBase, rank_zero_experiment
-from pytorch_lightning.utilities import rank_zero_only, _module_available
-from pytorch_lightning.utilities.exceptions import MisconfigurationException
-
-log = logging.getLogger(__name__)
 _COMET_AVAILABLE = _module_available("comet_ml")
 
 if _COMET_AVAILABLE:
@@ -48,6 +39,23 @@ else:
     comet_ml = None
     CometExperiment, CometExistingExperiment, CometOfflineExperiment = None, None, None
     API = None
+
+# isort: on
+
+import logging
+import os
+from argparse import Namespace
+from typing import Any, Dict, Optional, Union
+
+import torch
+from torch import is_tensor
+
+from pytorch_lightning.loggers.base import LightningLoggerBase, rank_zero_experiment
+from pytorch_lightning.utilities import rank_zero_only
+from pytorch_lightning.utilities.exceptions import MisconfigurationException
+
+log = logging.getLogger(__name__)
+
 
 
 class CometLogger(LightningLoggerBase):
